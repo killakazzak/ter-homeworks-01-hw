@@ -1,0 +1,1 @@
+tenda:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHB9X8NFfwcRKgcuSkzaqq1LCpplIhFsHNu54WnZhzAg tenda
