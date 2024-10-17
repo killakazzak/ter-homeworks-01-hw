@@ -28,7 +28,7 @@ resource "random_password" "mysql_user_password" {
 }
 
 resource "yandex_compute_instance" "vm" {
-  count = 1
+  count = 3
 
   name = "vm-${count.index + 1}"
   zone = "ru-central1-a"
@@ -62,6 +62,14 @@ resource "yandex_compute_instance" "vm" {
       apt-get install -y docker.io
       systemctl start docker
       systemctl enable docker
+      
+      # Добавление пользователя tenda
+      useradd -m -s /bin/bash tenda
+      echo "tenda:$(openssl rand -base64 12)" | chpasswd
+      usermod -aG sudo tenda
+      echo "tenda ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+      # Запуск контейнера MySQL
       docker run -d \
         --name mysql \
         -e "MYSQL_ROOT_PASSWORD=${random_password.mysql_root_password.result}" \
