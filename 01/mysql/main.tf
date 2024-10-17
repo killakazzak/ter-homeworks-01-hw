@@ -28,7 +28,7 @@ resource "random_password" "mysql_user_password" {
 }
 
 resource "yandex_compute_instance" "vm" {
-  count = 3
+  count = 1
 
   name = "vm-${count.index + 1}"
   zone = "ru-central1-a"
